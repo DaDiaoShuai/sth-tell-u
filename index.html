@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wonderful U</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+	        -webkit-mask-image: linear-gradient(to bottom right, #520, #1314);
+			background-image: linear-gradient(to bottom right, #520, #1314);
+		}
+
+		.box {
+			font-size: 20px;
+			display: flex;
+			height: 100vh;
+			font-family: "Hiragino Maru Gothic ProN W4"
+			color: #3d3d3d;
+			padding: 20px;
+		}
+
+		.fart {
+			margin: auto;
+	        -webkit-mask-image: linear-gradient(to right, #FFAFBD, #ffc3a0);
+	        background-image: linear-gradient(to right, #FFAFBD, #ffc3a0);
+	        -webkit-background-clip: text;
+	        -webkit-text-fill-color: transparent;
+	        -webkit-background-size: 200% 100%;
+	        animation: bgp 6s infinite linear;
+		}
+	 	@keyframes bgp {
+	        from {
+	            filter: hue-rotate(0deg);
+	        }
+	        to {
+	            filter: hue-rotate(360deg);
+	        }
+	    }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p id="fart" class="fart">
+			🌈🌈🌈
+		</p>
+	</div>
+	<script>
+		function insertFart (text) {
+			const fart = document.querySelector('#fart');
+			fart.innerHTML = text;
+		}
+
+		const api = 'https://4bros.cn/dw/fart';
+
+		function fetchFart () {
+			fetch(api).then(res => {
+				return res.json();
+			}).then(({data}) => {
+				insertFart(data.result || 'mua');
+			})
+		}
+
+		fetchFart();
+
+		document.addEventListener('click', debounce(() => {
+			fetchFart();
+		}))
+
+		function debounce(fn, wait=500) {
+			let timeout;
+			return function() {
+				const _this = this,
+					args = arguments;
+				clearTimeout(timeout);
+				timeout = setTimeout(function() {
+					fn.apply(_this, args);
+				}, wait)
+			}
+		}
+
+	</script>
+</body>
+</html>
